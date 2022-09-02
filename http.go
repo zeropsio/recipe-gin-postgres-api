@@ -50,6 +50,7 @@ func (t todoHandler) createTodo(c *gin.Context) {
 	todo, err = t.model.Create(c.Request.Context(), todo)
 	if err != nil {
 		_ = c.AbortWithError(500, err)
+		return
 	}
 	c.JSON(http.StatusOK, todo)
 }
