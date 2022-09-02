@@ -22,7 +22,7 @@ func (t todoHandler) getTodo(c *gin.Context) {
 	}
 	todo, found, err := t.model.FindOne(c.Request.Context(), uri.ID)
 	if err != nil {
-		_ = c.AbortWithError(500, err)
+		internalServerError(c, err)
 		return
 	}
 	if !found {
@@ -35,7 +35,7 @@ func (t todoHandler) getTodo(c *gin.Context) {
 func (t todoHandler) getTodos(c *gin.Context) {
 	todos, err := t.model.FindAll(c.Request.Context())
 	if err != nil {
-		_ = c.AbortWithError(500, err)
+		internalServerError(c, err)
 		return
 	}
 	c.JSON(http.StatusOK, todos)
@@ -49,7 +49,7 @@ func (t todoHandler) createTodo(c *gin.Context) {
 	}
 	todo, err = t.model.Create(c.Request.Context(), todo)
 	if err != nil {
-		_ = c.AbortWithError(500, err)
+		internalServerError(c, err)
 		return
 	}
 	c.JSON(http.StatusOK, todo)
@@ -67,7 +67,7 @@ func (t todoHandler) editTodo(c *gin.Context) {
 	}
 	todo, err := t.model.Edit(c.Request.Context(), uri.ID, updateTodo)
 	if err != nil {
-		_ = c.AbortWithError(400, err)
+		internalServerError(c, err)
 		return
 	}
 	c.JSON(http.StatusOK, todo)
@@ -81,7 +81,7 @@ func (t todoHandler) deleteTodo(c *gin.Context) {
 	}
 	err := t.model.Delete(c.Request.Context(), uri.ID)
 	if err != nil {
-		c.String(400, "delete failed")
+		internalServerError(c, err)
 		return
 	}
 	c.JSON(http.StatusOK, map[string]interface{}{"id": uri.ID})
@@ -93,4 +93,8 @@ func todoNotFound(c *gin.Context) {
 		Err:  errors.New("todo not found"),
 		Type: gin.ErrorTypePublic,
 	})
+}
+
+func internalServerError(c *gin.Context, err error) {
+	_ = c.AbortWithError(http.StatusInternalServerError, err)
 }

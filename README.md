@@ -130,7 +130,7 @@ func (t todoHandler) createTodo(c *gin.Context) {
 
 Finally, we can run this server on the port `3000` using the following code.
 
-```
+```go
 log.Fatal(r.Run(":3000"))
 ```
 
@@ -153,9 +153,30 @@ This command sets environment variables and runs the api.
 $ source .env && go run main.go http.go model.go
 ```
 
-#### Runnning the api on zerops
+#### Runnning the api on Zerops
 
-zerops.yml
+After we completed the development of the api, it's time to deploy it to Zerops. For that
+we need to create a file called `zerops.yml`, which contains steps to build and deploy our app.
+For the GO language this file is rather simple and looks like this.
 
-#### Conclusione
-Tato pr8ce m2 velmi bavila slibuji
+```yaml
+api:
+  build:
+    base: [ go@1 ]
+    build:
+      - go build -o app main.go model.go http.go
+    deploy: [ app ]
+  run:
+    start: ./app
+```
+
+You need to add this to the root of your Gitlab / Github repository and link that to the
+service stack in Zerops. If you are not sure how to do that [heres link](TODO). Additionally,
+configure environment variables as you did in the local development inside Zerops.
+
+After you enabled the subdomain and accessed it, you should see response with todo entries from the
+`ZEROPS_RECIPE_DATA_SEED` variable.
+
+#### Conclusion
+Hopefully you managed to work along this article to deploy the api to Zerops successfully.
+For further questions visit our Discord channel.
