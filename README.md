@@ -51,10 +51,10 @@ This command creates two files, `go.mod` and `go.sum`, that contain dependency i
 
 Following GO packages are used in the example:
 
-* [github.com/georgysavva/scany *(v1.1.0)*](github.com/georgysavva/scany) 
-* [github.com/gin-contrib/cors *(v1.4.0)*](github.com/gin-contrib/cors)
-* [github.com/gin-gonic/gin *(v1.8.1)*](github.com/gin-gonic/gin)
-* [github.com/jackc/pgx/v4 *(v4.17.1)*](github.com/jackc/pgx/v4)
+* [github.com/georgysavva/scany *(v1.1.0)*](https://github.com/georgysavva/scany) 
+* [github.com/gin-contrib/cors *(v1.4.0)*](https://github.com/gin-contrib/cors)
+* [github.com/gin-gonic/gin *(v1.8.1)*](https://github.com/gin-gonic/gin)
+* [github.com/jackc/pgx/v4 *(v4.17.1)*](https://github.com/jackc/pgx/v4)
 
 and they can be installed using
 
